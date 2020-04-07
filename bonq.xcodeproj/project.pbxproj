@@ -3,15 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		756EBF6E9E035CBBFBAE015E /* Pods_bonqTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D4E0377F12D6B57ECB4A4E /* Pods_bonqTests.framework */; };
+		CC4360206E65E2E9CD1DD7C7 /* Pods_bonq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F25BABC47CBDEB13194E5CB /* Pods_bonq.framework */; };
+		D83D23D8243D45CE00DA81E0 /* GameDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23D2243D45CE00DA81E0 /* GameDisplayData.swift */; };
+		D83D23D9243D45CE00DA81E0 /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23D3243D45CE00DA81E0 /* GamePresenter.swift */; };
+		D83D23DA243D45CE00DA81E0 /* GameRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23D4243D45CE00DA81E0 /* GameRouter.swift */; };
+		D83D23DB243D45CE00DA81E0 /* GameModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23D5243D45CE00DA81E0 /* GameModuleApi.swift */; };
+		D83D23DC243D45CE00DA81E0 /* GameInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23D6243D45CE00DA81E0 /* GameInteractor.swift */; };
+		D83D23DD243D45CE00DA81E0 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23D7243D45CE00DA81E0 /* GameView.swift */; };
+		D83D23DF243D45E200DA81E0 /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D23DE243D45E200DA81E0 /* AppModules.swift */; };
+		D83D23E1243D475500DA81E0 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D83D23E0243D475500DA81E0 /* Podfile */; };
 		D859E53B243A7A910086E20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D859E53A243A7A910086E20D /* AppDelegate.swift */; };
-		D859E53D243A7A910086E20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D859E53C243A7A910086E20D /* SceneDelegate.swift */; };
-		D859E53F243A7A910086E20D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D859E53E243A7A910086E20D /* ContentView.swift */; };
 		D859E541243A7A980086E20D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D859E540243A7A980086E20D /* Assets.xcassets */; };
-		D859E544243A7A980086E20D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D859E543243A7A980086E20D /* Preview Assets.xcassets */; };
 		D859E547243A7A980086E20D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D859E545243A7A980086E20D /* LaunchScreen.storyboard */; };
 		D859E552243A7A980086E20D /* bonqTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D859E551243A7A980086E20D /* bonqTests.swift */; };
 /* End PBXBuildFile section */
@@ -27,17 +34,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F25BABC47CBDEB13194E5CB /* Pods_bonq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bonq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36D4E0377F12D6B57ECB4A4E /* Pods_bonqTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bonqTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B3478AA6A51BF97091A5665 /* Pods-bonq.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bonq.debug.xcconfig"; path = "Target Support Files/Pods-bonq/Pods-bonq.debug.xcconfig"; sourceTree = "<group>"; };
+		40D23273FE9D3437ED4F781C /* Pods-bonqTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bonqTests.release.xcconfig"; path = "Target Support Files/Pods-bonqTests/Pods-bonqTests.release.xcconfig"; sourceTree = "<group>"; };
+		D15C3F0C1B81D0AAAA24E07A /* Pods-bonq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bonq.release.xcconfig"; path = "Target Support Files/Pods-bonq/Pods-bonq.release.xcconfig"; sourceTree = "<group>"; };
+		D83D23D2243D45CE00DA81E0 /* GameDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDisplayData.swift; sourceTree = "<group>"; };
+		D83D23D3243D45CE00DA81E0 /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
+		D83D23D4243D45CE00DA81E0 /* GameRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRouter.swift; sourceTree = "<group>"; };
+		D83D23D5243D45CE00DA81E0 /* GameModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModuleApi.swift; sourceTree = "<group>"; };
+		D83D23D6243D45CE00DA81E0 /* GameInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInteractor.swift; sourceTree = "<group>"; };
+		D83D23D7243D45CE00DA81E0 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		D83D23DE243D45E200DA81E0 /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
+		D83D23E0243D475500DA81E0 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D859E537243A7A910086E20D /* bonq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bonq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D859E53A243A7A910086E20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D859E53C243A7A910086E20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D859E53E243A7A910086E20D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D859E540243A7A980086E20D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D859E543243A7A980086E20D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D859E546243A7A980086E20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D859E548243A7A980086E20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D859E54D243A7A980086E20D /* bonqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bonqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D859E551243A7A980086E20D /* bonqTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bonqTests.swift; sourceTree = "<group>"; };
 		D859E553243A7A980086E20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8B3C5FCE8DA8D6E19D57B9F /* Pods-bonqTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bonqTests.debug.xcconfig"; path = "Target Support Files/Pods-bonqTests/Pods-bonqTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC4360206E65E2E9CD1DD7C7 /* Pods_bonq.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +71,64 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				756EBF6E9E035CBBFBAE015E /* Pods_bonqTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F708CAC24C45B54A0CA12B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F25BABC47CBDEB13194E5CB /* Pods_bonq.framework */,
+				36D4E0377F12D6B57ECB4A4E /* Pods_bonqTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8BCEB046E358783F037DF4E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B3478AA6A51BF97091A5665 /* Pods-bonq.debug.xcconfig */,
+				D15C3F0C1B81D0AAAA24E07A /* Pods-bonq.release.xcconfig */,
+				F8B3C5FCE8DA8D6E19D57B9F /* Pods-bonqTests.debug.xcconfig */,
+				40D23273FE9D3437ED4F781C /* Pods-bonqTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D83D23D0243D455D00DA81E0 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				D83D23D1243D456B00DA81E0 /* Game */,
+				D83D23DE243D45E200DA81E0 /* AppModules.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		D83D23D1243D456B00DA81E0 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				D83D23D2243D45CE00DA81E0 /* GameDisplayData.swift */,
+				D83D23D3243D45CE00DA81E0 /* GamePresenter.swift */,
+				D83D23D4243D45CE00DA81E0 /* GameRouter.swift */,
+				D83D23D5243D45CE00DA81E0 /* GameModuleApi.swift */,
+				D83D23D6243D45CE00DA81E0 /* GameInteractor.swift */,
+				D83D23D7243D45CE00DA81E0 /* GameView.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
 		D859E52E243A7A910086E20D = {
 			isa = PBXGroup;
 			children = (
+				D83D23E0243D475500DA81E0 /* Podfile */,
 				D859E539243A7A910086E20D /* bonq */,
 				D859E550243A7A980086E20D /* bonqTests */,
 				D859E538243A7A910086E20D /* Products */,
+				8BCEB046E358783F037DF4E8 /* Pods */,
+				0F708CAC24C45B54A0CA12B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,23 +144,13 @@
 		D859E539243A7A910086E20D /* bonq */ = {
 			isa = PBXGroup;
 			children = (
+				D859E548243A7A980086E20D /* Info.plist */,
 				D859E53A243A7A910086E20D /* AppDelegate.swift */,
-				D859E53C243A7A910086E20D /* SceneDelegate.swift */,
-				D859E53E243A7A910086E20D /* ContentView.swift */,
 				D859E540243A7A980086E20D /* Assets.xcassets */,
 				D859E545243A7A980086E20D /* LaunchScreen.storyboard */,
-				D859E548243A7A980086E20D /* Info.plist */,
-				D859E542243A7A980086E20D /* Preview Content */,
+				D83D23D0243D455D00DA81E0 /* Modules */,
 			);
 			path = bonq;
-			sourceTree = "<group>";
-		};
-		D859E542243A7A980086E20D /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				D859E543243A7A980086E20D /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D859E550243A7A980086E20D /* bonqTests */ = {
@@ -114,9 +169,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D859E556243A7A980086E20D /* Build configuration list for PBXNativeTarget "bonq" */;
 			buildPhases = (
+				B83E8D362E1F348C8FAAB964 /* [CP] Check Pods Manifest.lock */,
 				D859E533243A7A910086E20D /* Sources */,
 				D859E534243A7A910086E20D /* Frameworks */,
 				D859E535243A7A910086E20D /* Resources */,
+				A4528BD9CB09D90F7D1CB599 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,6 +188,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D859E559243A7A980086E20D /* Build configuration list for PBXNativeTarget "bonqTests" */;
 			buildPhases = (
+				76C274A217BE09EA2CA23F05 /* [CP] Check Pods Manifest.lock */,
 				D859E549243A7A980086E20D /* Sources */,
 				D859E54A243A7A980086E20D /* Frameworks */,
 				D859E54B243A7A980086E20D /* Resources */,
@@ -188,8 +246,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83D23E1243D475500DA81E0 /* Podfile in Resources */,
 				D859E547243A7A980086E20D /* LaunchScreen.storyboard in Resources */,
-				D859E544243A7A980086E20D /* Preview Assets.xcassets in Resources */,
 				D859E541243A7A980086E20D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,14 +261,83 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		76C274A217BE09EA2CA23F05 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bonqTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4528BD9CB09D90F7D1CB599 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bonq/Pods-bonq-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bonq/Pods-bonq-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bonq/Pods-bonq-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B83E8D362E1F348C8FAAB964 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bonq-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D859E533243A7A910086E20D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83D23DC243D45CE00DA81E0 /* GameInteractor.swift in Sources */,
+				D83D23D8243D45CE00DA81E0 /* GameDisplayData.swift in Sources */,
+				D83D23DB243D45CE00DA81E0 /* GameModuleApi.swift in Sources */,
 				D859E53B243A7A910086E20D /* AppDelegate.swift in Sources */,
-				D859E53D243A7A910086E20D /* SceneDelegate.swift in Sources */,
-				D859E53F243A7A910086E20D /* ContentView.swift in Sources */,
+				D83D23DA243D45CE00DA81E0 /* GameRouter.swift in Sources */,
+				D83D23DF243D45E200DA81E0 /* AppModules.swift in Sources */,
+				D83D23D9243D45CE00DA81E0 /* GamePresenter.swift in Sources */,
+				D83D23DD243D45CE00DA81E0 /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,10 +487,10 @@
 		};
 		D859E557243A7A980086E20D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B3478AA6A51BF97091A5665 /* Pods-bonq.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"bonq/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = bonq/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -379,10 +506,10 @@
 		};
 		D859E558243A7A980086E20D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D15C3F0C1B81D0AAAA24E07A /* Pods-bonq.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"bonq/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = bonq/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -398,6 +525,7 @@
 		};
 		D859E55A243A7A980086E20D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8B3C5FCE8DA8D6E19D57B9F /* Pods-bonqTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -419,6 +547,7 @@
 		};
 		D859E55B243A7A980086E20D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40D23273FE9D3437ED4F781C /* Pods-bonqTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

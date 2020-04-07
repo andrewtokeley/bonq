@@ -1,0 +1,20 @@
+PODS:
+  - PureLayout (3.1.5)
+  - Viperit (1.4.4)
+
+DEPENDENCIES:
+  - PureLayout
+  - Viperit
+
+SPEC REPOS:
+  trunk:
+    - PureLayout
+    - Viperit
+
+SPEC CHECKSUMS:
+  PureLayout: 9b4ad47b2f0388c84ff534af23d96e720c1b875a
+  Viperit: cd08e50b10a1f58c6dad0833bbc111e4de398b31
+
+PODFILE CHECKSUM: 97be6208df759e4e7be26108b251a3b38d4af072
+
+COCOAPODS: 1.8.4

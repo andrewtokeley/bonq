@@ -12,6 +12,10 @@ import Viperit
 //MARK: - Application modules
 enum AppModules: String, ViperitModule {
     case game
+    case gameSideBar
+    case load
+    case menu
+    case settings
     
     var viewType: ViperitViewType {
         return .code

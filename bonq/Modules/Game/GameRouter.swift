@@ -11,10 +11,18 @@ import Viperit
 
 // MARK: - GameRouter class
 final class GameRouter: Router {
+    
 }
 
 // MARK: - GameRouter API
 extension GameRouter: GameRouterApi {
+    
+    func showSideBar(within viewController: UIViewController, inside viewContainer: UIView, setupData: GameSideBarSetupData) -> GameSideBarPresenterApi {
+        let module = AppModules.gameSideBar.build()
+        module.router.show(from: viewController, insideView: viewContainer, setupData: setupData)
+        return module.presenter as! GameSideBarPresenter
+    }
+    
 }
 
 // MARK: - Game Viper Components

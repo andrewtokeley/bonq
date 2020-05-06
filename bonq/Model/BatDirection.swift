@@ -8,8 +8,11 @@
 
 import Foundation
 
-enum BatDirection {
+enum BatMovement {
     case left
     case right
     case stop
+    case brake
 }
+
+

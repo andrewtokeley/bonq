@@ -14,6 +14,8 @@ class Layout {
     static var spacerNormal: CGFloat = 10
     static var spacerSmall: CGFloat = 5
     
+    static var labelWidthNormal: CGFloat = 100
+    
     /**
      Controls should be this distance from the top of the screen to avoid overlapping with the background image title.
      */

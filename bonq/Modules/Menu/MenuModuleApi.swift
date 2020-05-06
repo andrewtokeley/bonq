@@ -11,7 +11,7 @@ import MultipeerConnectivity
 
 //MARK: - MenuRouter API
 protocol MenuRouterApi: RouterProtocol {
-    func navigateToGame()
+    func navigateToGame(setup: GameSetupData)
 }
 
 //MARK: - MenuView API
@@ -43,9 +43,9 @@ protocol MenuViewApi: UserInterfaceProtocol {
     func showOpponentPlayer(name: String)
     
     /**
-     Remove the opponent player. This will happen when a nearby player closes their app or isn't on the same network anymore.
+     Indicate that we are looking for a player.
      */
-    func removeOpponentPlayer(name: String)
+    func displaySearchingForPlayer()
 }
 
 //MARK: - MenuPresenter API
@@ -55,14 +55,11 @@ protocol MenuPresenterApi: PresenterProtocol {
     func didClickPlayButton()
     
     /**
-     Called when your opponent responds to your request to play
-     */
-    func responseToRequestToPlay(accepted: Bool, opponent: MCPeerID)
-    
-    /**
      Called by the view when a user selects to invite a discovered player to a game
      */
     func didTapLocalProfileView()
+    
+    func didTapOpponentProfileView()
 }
 
 //MARK: - MenuInteractor API

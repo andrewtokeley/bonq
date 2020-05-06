@@ -12,10 +12,11 @@ import SpriteKit
 class Bat: SKShapeNode {
     
     var size: CGSize
+    var moveDirection: BatMovement = .stop
     
     // MARK: - SubViews
     
-    lazy var bat: SKShapeNode = {
+    private lazy var bat: SKShapeNode = {
         let bat = SKShapeNode(rectOf: size)
         bat.lineWidth = 0
         bat.fillColor = SKColor.app_buttonBackground
@@ -36,7 +37,6 @@ class Bat: SKShapeNode {
         self.physicsBody = SKPhysicsBody(rectangleOf: size)
         self.physicsBody?.isDynamic = false
         self.physicsBody?.category = [.bat]
-        
         //self.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
     }
     
@@ -46,16 +46,19 @@ class Bat: SKShapeNode {
     
     // MARK: Movements
     
-    func move (_ direction: BatDirection) {
+    func move (_ direction: BatMovement) {
         
-        // How far the bat can move left or right, given a bat's position is determined by its centre
+        self.moveDirection = direction
+        
         if let sceneWidth = self.scene?.frame.width {
+            
+            // Determine the furthest left and right the bat can travel
             let leftMostX = self.size.width/2
             let rightMostX = sceneWidth - self.size.width/2
 
-            // duration of movement is proportional to how far away the left or right boundary is. If the bat is on the left boundary then it should to 2 seconds to get to the right. If it's half way then it should take only 1 second.
-            var duration: TimeInterval = 0
-            let speed: CGFloat = 2.0
+            // to ensure the bat travels at a constant speed, we calculate the duration assuming it takes 2 seconds (speed) for the bat to travel the full width of the screen
+            var duration: TimeInterval!
+            let speed: CGFloat = 2
             if direction == .right {
                 duration = TimeInterval((sceneWidth - self.position.x)/sceneWidth * speed)
             } else if direction == .left {
@@ -63,15 +66,21 @@ class Bat: SKShapeNode {
             }
             
             if direction == .left {
+                self.speed = 1
                 let moveToLeftEdge = SKAction.moveTo(x: leftMostX, duration: duration)
                 self.removeAllActions()
                 self.run(moveToLeftEdge)
             } else if direction == .right {
+                self.speed = 1
                 let moveToRightEdge = SKAction.moveTo(x: rightMostX, duration: duration)
                 self.removeAllActions()
                 self.run(moveToRightEdge)
             } else if direction == .stop {
                 self.removeAllActions()
+            } else if direction == .brake {
+                //slow the bat movement down to zero over the space of 0.5 seconds.
+                let brake = SKAction.speed(to: 0, duration: 0.1)
+                self.run(brake)
             }
         }
     }

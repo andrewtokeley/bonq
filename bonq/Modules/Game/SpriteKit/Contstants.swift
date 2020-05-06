@@ -13,10 +13,11 @@ struct PhysicsCategory: OptionSet {
     let rawValue: UInt32
     init(rawValue: UInt32) { self.rawValue = rawValue }
 
-    static let bat  = PhysicsCategory(rawValue: 0b0001)
-    static let ball = PhysicsCategory(rawValue: 0b0010)
-    static let wall = PhysicsCategory(rawValue: 0b0100)
-    static let ground = PhysicsCategory(rawValue: 0b1000)
+    static let bat  = PhysicsCategory(rawValue: 0b00001)
+    static let ball = PhysicsCategory(rawValue: 0b00010)
+    static let wall = PhysicsCategory(rawValue: 0b00100)
+    static let ground = PhysicsCategory(rawValue: 0b01000)
+    static let topWall = PhysicsCategory(rawValue: 0b10000)
 }
 
 extension SKPhysicsBody {

@@ -24,7 +24,6 @@ final class MenuView: UserInterface {
     
     lazy var localPlayerIcon: ProfileView = {
         let view = ProfileView()
-        view.alpha = 1
         view.tag = PLAYER_LOCAL
         
         view.isUserInteractionEnabled = true
@@ -38,16 +37,16 @@ final class MenuView: UserInterface {
     
     lazy var opponentPlayerIcon: ProfileView = {
         let view = ProfileView()
-        view.alpha = 1
+        
+        // default to invisible, will be turned on if a peer is found
         view.tag = PLAYER_OPPONENT
         
         view.isUserInteractionEnabled = true
-        
         view.setSelectedState(isSelected: false)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapPlayerIcon(sender:)))
         view.addGestureRecognizer(tap)
-        
+
         return view
     }()
     
@@ -77,6 +76,11 @@ final class MenuView: UserInterface {
     }()
     
     // MARK: - UIViewController
+    
+    // TEMP
+    override var shouldAutorotate: Bool {
+        return false
+    }
     
     override func loadView() {
         super.loadView()
@@ -129,9 +133,10 @@ final class MenuView: UserInterface {
         
         if sender.view?.tag == PLAYER_LOCAL {
             presenter.didTapLocalProfileView()
+        } else if sender.view?.tag == PLAYER_OPPONENT {
+            presenter.didTapOpponentProfileView()
         }
     }
-    
     
 }
 
@@ -166,12 +171,11 @@ extension MenuView: MenuViewApi {
     }
     
     func showOpponentPlayer(name: String) {
-        opponentPlayerIcon.alpha = 1
         opponentPlayerIcon.profileName.text = name
     }
     
-    func removeOpponentPlayer(name: String) {
-        opponentPlayerIcon.alpha = 0
+    func displaySearchingForPlayer() {
+        opponentPlayerIcon.profileName.text = "Searching..."
     }
     
 }

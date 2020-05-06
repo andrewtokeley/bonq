@@ -11,5 +11,7 @@ import Foundation
 struct GameSideBarSetupData {
     var localPlayerName: String
     var opponentName: String?
-    var orientation: SideBarOrientation
+    //var orientation: SideBarOrientation
+
+    var delegate: GameSideBarDelegate?
 }

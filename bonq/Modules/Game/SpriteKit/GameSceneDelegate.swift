@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 
 protocol GameSceneDelegate {
-    func gameScene(_ grameScene: SKScene, ballHitBatAt location: CGFloat)
-    func gameScene(_ grameScene: SKScene, ballHitGroundAt location: CGFloat)
+    func gameScene(_ gameScene: SKScene, ballHitBatAt location: CGFloat)
+    func gameScene(_ gameScene: SKScene, ballHitGroundAt location: CGFloat)
+    func gameScene(_ gameScene: SKScene, ballLeftScreenAtLocation location: CGFloat, vector: CGVector)
+    func gameScene(_ gameScene: SKScene, didServiceBallInDirection vector: CGVector)
 }

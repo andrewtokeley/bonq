@@ -19,7 +19,7 @@ extension UIColor {
     }
     
     public class var app_backgroundLight: UIColor {
-        return .white
+        return .app_textColourOnDark
     }
     
     public class var app_buttonBackground: UIColor {

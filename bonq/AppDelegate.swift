@@ -15,16 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // Open first view
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        let module = AppModules.load.build()
-//        module.router.show(inWindow: self.window, embedInNavController: false, setupData: nil, makeKeyAndVisible: true)
-
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.menu.build()
         module.router.show(inWindow: self.window, embedInNavController: false, setupData: nil, makeKeyAndVisible: true)
-        return true
-            
+        return true            
     }
 
 }

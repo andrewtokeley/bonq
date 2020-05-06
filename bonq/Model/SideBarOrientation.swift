@@ -11,4 +11,5 @@ import Foundation
 enum SideBarOrientation {
     case left
     case right
+    case bottom
 }

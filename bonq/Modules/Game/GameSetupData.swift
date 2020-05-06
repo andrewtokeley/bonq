@@ -11,5 +11,5 @@ import GameKit
 
 struct GameSetupData {
     var sideBarOrientation: SideBarOrientation
-    var match: GKMatch
+    var hasServe: Bool
 }

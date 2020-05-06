@@ -18,10 +18,10 @@ final class MenuRouter: Router {
 // MARK: - MenuRouter API
 extension MenuRouter: MenuRouterApi {
     
-    func navigateToGame() {
+    func navigateToGame(setup: GameSetupData) {
         
         let module = AppModules.game.build()
-        module.router.present(from: viewController, embedInNavController: false, presentationStyle: .fullScreen, transitionStyle: .crossDissolve, setupData: nil, completion: nil)
+        module.router.present(from: viewController, embedInNavController: false, presentationStyle: .fullScreen, transitionStyle: .crossDissolve, setupData: setup, completion: nil)
     }
 }
 

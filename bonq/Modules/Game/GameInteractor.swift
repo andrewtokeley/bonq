@@ -15,6 +15,17 @@ final class GameInteractor: Interactor {
 
 // MARK: - GameInteractor API
 extension GameInteractor: GameInteractorApi {
+    
+    func tellOpponentTheScores(theirScore: Int, yourScore: Int) {
+        let scoreMessage = ScoreMessage(score: theirScore, opponentScore: yourScore)
+        PeerToPeerService.instance.sendMessage(message: scoreMessage)
+    }
+    
+    func tellOpponentBallIsComing(xLocationAsAProportionOfWidth widthProportion: CGFloat, vector: CGVector) {
+        
+        let ballExitMessage = BallExitMessage(widthProportion: widthProportion, vector: vector)
+        PeerToPeerService.instance.sendMessage(message: ballExitMessage)
+    }
 }
 
 // MARK: - Interactor Viper Components Api

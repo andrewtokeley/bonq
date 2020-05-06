@@ -22,6 +22,15 @@ class Ball: SKShapeNode {
         return ball
     }()
     
+    lazy var diagnosticLabel: SKLabelNode = {
+        let node = SKLabelNode()
+        node.position = CGPoint(x: 0, y: -30)
+        node.fontColor = .white
+        node.fontSize = 12
+        
+        return node
+    }()
+    
     // MARK: - Initializers
     
     init(radius: CGFloat) {
@@ -32,6 +41,7 @@ class Ball: SKShapeNode {
         self.name = NodeNames.ball
         
         self.addChild(ball)
+        //self.addChild(diagnosticLabel)
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.radius)
         self.physicsBody?.allowsRotation = false
@@ -50,7 +60,7 @@ class Ball: SKShapeNode {
         //self.physicsBody?.collisionBitMask = PhysicsCategory.bat.rawValue | PhysicsCategory.ground.rawValue
         
         // Only notify when the ball collides with a bat and ground (not walls)
-        self.physicsBody?.contactTestBitMask = PhysicsCategory.bat.rawValue | PhysicsCategory.ground.rawValue
+        self.physicsBody?.contactTestBitMask = PhysicsCategory.bat.rawValue | PhysicsCategory.ground.rawValue | PhysicsCategory.wall.rawValue
         
     }
     
@@ -60,19 +70,34 @@ class Ball: SKShapeNode {
     
     // MARK: - Movement
     
-    func movementVector() -> CGVector {
-        return self.physicsBody?.velocity ?? CGVector()
+    /**
+     Applies an impulse to the ball in the direction specified by the vector, ensuring a consistent speed. Can optional supply a location from which to place to ball prior to the impulse.
+     
+     - Parameters
+        - normalisedVector: a vector indicating the direction of the impulse. Should be normalised to ensure a constant amount of force is applied resulting from calling vector.normalise()l
+        - fromLocation: optional location for the ball to move from, if nil the ball will move from it's current position
+     */
+    func applyImpulse(normalisedDirectionVector: CGVector, fromPosition position: CGPoint? = nil) {
+        
+        // just to be safe
+        let vector = normalisedDirectionVector.normalized()
+        
+        // change the ball's position, if specified
+        if let position = position {
+            ball.position = position
+        }
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        
+        let ballSpeed:CGFloat = 10
+        
+        self.physicsBody?.applyImpulse(vector * ballSpeed)
     }
     
-    func dropInRandomAngle() {
-        let speed:Double = 10
-        let degrees = Double.random(in: 200 ..< 335)
-        //print("degrees: \(degrees)")
-        let radians = degrees * Double.pi/180.0
-        let vector = CGVector(dx: cos(radians)*speed, dy: sin(radians)*speed)
-        //print("vector: \(vector)")
-        self.physicsBody?.velocity = CGVector(dx: 0, dy:0) // stop first
-        self.physicsBody?.applyImpulse(vector)
+    /**
+     Serve the ball (currently always up and right at 45 degree angle)
+     */
+    func serve(vector: CGVector) {
+        self.applyImpulse(normalisedDirectionVector: vector.normalized())
     }
     
     func destroy() {
@@ -84,7 +109,4 @@ class Ball: SKShapeNode {
         self.removeFromParent()
     }
     
-    func nudge() {
-        
-    }
 }

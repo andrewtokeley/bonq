@@ -35,8 +35,9 @@ extension SettingsService: SettingsServiceInterface {
         let userDefault = UserDefaults.standard
         
         // Name
-        name = userDefault.string(forKey: KEY_NAME)
-        if name.count == 0 || name == nil {
+        if let savedName = userDefault.string(forKey: KEY_NAME) {
+            name = savedName
+        } else {
             name = UIDevice.current.name
         }
         
@@ -49,7 +50,6 @@ extension SettingsService: SettingsServiceInterface {
         if peerId == nil || peerId?.displayName != name {
             peerId = MCPeerID(displayName: name)
         }
-        
         
         completion?(Settings(peerId: peerId, name: name))
     }

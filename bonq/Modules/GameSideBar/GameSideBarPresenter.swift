@@ -13,29 +13,41 @@ import GameKit
 // MARK: - GameSideBarPresenter Class
 final class GameSideBarPresenter: Presenter {
     
+    var delegate: GameSideBarDelegate?
+    
     override func setupView(data: Any) {
         if let data = data as? GameSideBarSetupData {
             view.displayName(player: .local, name: data.localPlayerName)
             if let opponentName = data.opponentName {
                 view.displayName(player: .opponent, name: opponentName)
             }
+            delegate = data.delegate
+            
+            view.setOrientation(orientation: delegate?.gameSideBarOrientation() ?? .left)
         }
     }
 }
 
 // MARK: - GameSideBarPresenter API
 extension GameSideBarPresenter: GameSideBarPresenterApi {
+    
+    func didSelectQuit() {
+        // this will send a 'lostPeer' message to your opponent, so that they know you quit
+        PeerToPeerService.instance.disconnectFromSession()
+        
+        delegate?.gameSideBar(self, selectedAction: .quit)
+    }
 }
 
-extension GameSideBarPresenter: MatchDelegate {
-    func match(updatedScore score: Int, forPlayer player: Player) {
+// MARK: - GameDelegate
+extension GameSideBarPresenter: GameDelegate {
+    
+    func gameDelegate(_ gameDelegate: GamePresenterApi, updatedScore score: Int, forPlayer player: Player) {
         view.displayScore(player: player, score: score)
     }
     
-    func match(setSideBarOrientation orientation: SideBarOrientation) {
-        view.setOrientation(orientation: orientation)
-    }
 }
+
 // MARK: - GameSideBar Viper Components
 private extension GameSideBarPresenter {
     var view: GameSideBarViewApi {

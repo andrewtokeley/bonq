@@ -21,6 +21,7 @@ protocol GameSideBarViewApi: UserInterfaceProtocol {
 
 //MARK: - GameSideBarPresenter API
 protocol GameSideBarPresenterApi: PresenterProtocol {
+    func didSelectQuit()
 }
 
 //MARK: - GameSideBarInteractor API

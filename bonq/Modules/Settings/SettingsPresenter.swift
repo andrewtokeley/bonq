@@ -12,6 +12,13 @@ import Viperit
 // MARK: - SettingsPresenter Class
 final class SettingsPresenter: Presenter {
     var settings: Settings!
+    var delegate: SettingsDelegate?
+    
+    override func setupView(data: Any) {
+        if let data = data as? SettingsSetupData {
+            self.delegate = data.delegate
+        }
+    }
     
     override func viewHasLoaded() {
 
@@ -42,7 +49,10 @@ extension SettingsPresenter: SettingsPresenterApi {
             if let error = error {
                 self.view.displayErrorMessage(message: error.localizedDescription)
             } else {
-                // successfully saved
+                // successfully saved, let the delegate (MenuPresenter) know
+                self.delegate?.settings(self, didUpdateName: self.settings.name)
+                
+                // close module
                 self.router.dismiss(animated: true, completion: nil)
             }
         }

@@ -15,9 +15,8 @@ final class MenuPresenter: Presenter {
     
     let service = PeerToPeerService.instance
     
-    // for now assuming you'll only ever find one person
-    var foundPeer: MCPeerID?
-    
+    // remember all the peers we find (but we're only going to show one)
+    var foundPeers = [MCPeerID]()
     
     override func viewHasLoaded() {
         
@@ -27,6 +26,7 @@ final class MenuPresenter: Presenter {
         
         view.enablePlayButton(false)
         view.displayLocalPlayerName(name: service.localPeerID.displayName)
+        view.displaySearchingForPlayer()
     }
     
     private func displayWelcomeMessage() {
@@ -41,36 +41,64 @@ final class MenuPresenter: Presenter {
 
 extension MenuPresenter: PeerToPeerServiceMatchDelegate {
     
-    func peerToPeer(_ service: PeerToPeerService, receivedData: Data, fromPlayer player: MCPeerID) {
-        
-        let message = String(data: receivedData, encoding: .utf8) ?? "Unknown"
-        self.view.displayMessage(text: "Message: \(message), from \(player.displayName)")
-        
+    // TODO: this may no longer be needed
+    func peerToPeer(_ service: PeerToPeerService, opponentChangedName name: String) {
+        view.showOpponentPlayer(name: name)
     }
     
     func peerToPeer(_ service: PeerToPeerService, invitationAcceptedFromPlayer player: MCPeerID, accepted: Bool) {
         
-        self.responseToRequestToPlay(accepted: accepted, opponent: player)
+        if accepted {
+            
+            // Your invite was accepted - start the game and take the serve
+            self.router.navigateToGame(setup: GameSetupData(sideBarOrientation: .bottom, hasServe: true))
+
+        } else {
+            
+            view.displayMessage(text: "\(player.displayName) said NO :-(")
+        }
     }       
     
     func peerToPeer(_ service : PeerToPeerService, invitationReceivedFromPlayer player: MCPeerID, invitationMessage: String, response: @escaping (Bool) -> Void) {
+        
         self.view.displayMessage(text: "Received Invite from \(player.displayName)")
         self.view.showInvitation(message: invitationMessage) { (respo) in
             response(respo)
+            
+            // If you accepted, start the game and be ready to receive the serve
+            if respo {
+                self.router.navigateToGame(setup: GameSetupData(sideBarOrientation: .bottom, hasServe: false))
+            }
         }
     }
     
     func peerToPeer(_ service: PeerToPeerService, foundNearbyPlayer player: MCPeerID) {
         print("Found - \(player.displayName)")
-        foundPeer = player
+        
+        if !foundPeers.contains(player) {
+            foundPeers.append(player)
+        }
+        
         view.showOpponentPlayer(name: player.displayName)
         view.enablePlayButton(true)
     }
     
     func peerToPeer(_ service: PeerToPeerService, lostNearbyPlayer player: MCPeerID) {
-        foundPeer = nil
-        view.removeOpponentPlayer(name: player.displayName)
-        view.enablePlayButton(false)
+        print("Lost - \(player.displayName)")
+        
+        foundPeers.removeAll { (peer) -> Bool in
+            peer == player
+        }
+        
+        if let _ = foundPeers.last {
+            // display the last peer found
+            view.showOpponentPlayer(name: foundPeers.last!.displayName)
+        } else {
+            // all found peers gone
+            view.displaySearchingForPlayer()
+            view.enablePlayButton(false)
+        }
+        
     }
     
 }
@@ -78,24 +106,13 @@ extension MenuPresenter: PeerToPeerServiceMatchDelegate {
 // MARK: - MenuPresenter API
 extension MenuPresenter: MenuPresenterApi {
     
-    func responseToRequestToPlay(accepted: Bool, opponent: MCPeerID) {
-        if accepted {
-            router.navigateToGame()
-        } else {
-            view.displayMessage(text: "\(opponent.displayName) said NO :-(")
-        }
-    }
-    
-//    func didSelectReset() {
-//        self.service.resetService()
-//        self.displayWelcomeMessage()
-//    }
-    
     func didClickPlayButton() {
         
         // invite the other player
-        if let foundPeer = foundPeer {
+        if let foundPeer = foundPeers.last {
+            
             view.displayMessage(text: "Inviting \(foundPeer.displayName). One moment please...")
+            
             service.invitePlayer(peer: foundPeer, invitationMessage: "\(service.localPeerID.displayName) wants to play!")
         }
         
@@ -106,9 +123,25 @@ extension MenuPresenter: MenuPresenterApi {
         
         // Show settings button if this is for the local player
         let module = AppModules.settings.build()
-        module.router.show(from: view.viewController, embedInNavController: false, setupData: nil)
+        let setupData = SettingsSetupData(delegate: self)
+        module.router.show(from: view.viewController, embedInNavController: false, setupData: setupData)
     }
     
+    func didTapOpponentProfileView() {
+        //PeerToPeerService.instance.resetService()
+        
+    }
+    
+}
+
+// MARK: - SettingsDelegate
+
+extension MenuPresenter: SettingsDelegate {
+    
+    func settings(_ SettingsPresenter: SettingsPresenterApi, didUpdateName name: String) {
+        view.displayLocalPlayerName(name: name)
+        PeerToPeerService.instance.resetService()
+    }
 }
 
 // MARK: - Menu Viper Components

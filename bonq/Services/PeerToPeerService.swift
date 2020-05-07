@@ -23,9 +23,26 @@ class PeerToPeerService : NSObject {
     private var serviceAdvertiser : MCNearbyServiceAdvertiser!
     private var serviceBrowser : MCNearbyServiceBrowser!
     
+    /**
+     Local peer
+     */
     var localPeerID: MCPeerID!
-    var opponentPeerID: MCPeerID?
     
+    /**
+     This will be the last successfully found peer
+     */
+    var opponentPeerID: MCPeerID? {
+        return nearbyPeers.last
+    }
+    
+    /**
+     Array of all the current nearby peers
+     */
+    var nearbyPeers = [MCPeerID]()
+    
+    /**
+    Active session
+     */
     var session : MCSession!
     
     /**
@@ -37,7 +54,6 @@ class PeerToPeerService : NSObject {
     var gameDelegate: PeerToPeerServiceGameDelegate?
     
     override init() {
-        
         super.init()
         self.resetService()
     }
@@ -47,7 +63,7 @@ class PeerToPeerService : NSObject {
         self.serviceBrowser.stopBrowsingForPeers()
     }
     
-    func stopServices() {
+    private func stopServices() {
         guard self.serviceBrowser != nil && self.serviceAdvertiser != nil else {
             return
         }
@@ -56,13 +72,31 @@ class PeerToPeerService : NSObject {
         self.serviceBrowser.stopBrowsingForPeers()
     }
     
+    private func startService() {
+        guard self.serviceBrowser != nil && self.serviceAdvertiser != nil else {
+            return
+        }
+        
+        self.serviceAdvertiser.delegate = self
+        self.serviceAdvertiser.startAdvertisingPeer()
+        
+        self.serviceBrowser.delegate = self
+        self.serviceBrowser.startBrowsingForPeers()
+        
+    }
+    
     func resetService() {
-        print("PeerToPeerService: reset ")
+
+        // clear out any peers you may have found before. We'll pick them up again once the service starts again, if they're still around.
+        nearbyPeers.removeAll()
+        
         self.stopServices()
-        print("PeerToPeerService:stopped")
-        // retrieve the settings in case the user's name has changed. If this happens we need to recreate the localPeerId
+
+        // We call the settings service to get the name we want to attribute to the LocalPeer
         let settingsService = SettingsService()
         settingsService.get { (settings) in
+            
+            // reset the local peer
             self.localPeerID = settings.peerId
         
             self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: self.localPeerID, discoveryInfo: nil, serviceType: self.SERVICE_ID)
@@ -72,19 +106,9 @@ class PeerToPeerService : NSObject {
             self.session.delegate = self
 
             self.startService()
-            print("PeerToPeerService:started")
         }
     }
     
-    private func startService() {
-        
-        self.serviceAdvertiser.delegate = self
-        self.serviceAdvertiser.startAdvertisingPeer()
-        
-        self.serviceBrowser.delegate = self
-        self.serviceBrowser.startBrowsingForPeers()
-        
-    }
     /**
         Invite a nearby player to connect to the shared session.
      */
@@ -97,15 +121,24 @@ class PeerToPeerService : NSObject {
         self.serviceBrowser.invitePeer(peer, to: self.session, withContext: messageAsData, timeout: 10)
     }
 
+    /**
+     Sends a message to the last discovered peer
+     */
     func sendMessage(message: NSCoding) {
-        guard opponentPeerID != nil else {
-            return
+        if let lastDiscoveredPeer = nearbyPeers.last {
+            sendMessage(toPeer: lastDiscoveredPeer, message: message)
         }
+    }
+    
+    /**
+     Sends a message to the given peer
+     */
+    func sendMessage(toPeer peer: MCPeerID, message: NSCoding) {
         
         if let data = try? NSKeyedArchiver.archivedData(withRootObject: message, requiringSecureCoding: false) {
             
             do {
-                try self.session.send(data, toPeers: [self.opponentPeerID!], with: .reliable)
+                try self.session.send(data, toPeers: [peer], with: .reliable)
                 
             } catch let error as NSError {
                 print(error.localizedDescription)
@@ -114,23 +147,29 @@ class PeerToPeerService : NSObject {
         }
     }
     
+    /**
+     Disconnect's the local peer from the session
+     */
     func disconnectFromSession() {
         session.disconnect()
     }
     
+    /**
+     Convenience method to ensure delegate callbacks are executed on the main thread. This is because it's likely the delegates will do actions on the UI which must be done on the main thread.
+     */
     private func threadSafeCallback(callback: @escaping () -> Void) {
         DispatchQueue.main.async {
             callback()
         }
     }
-    
 }
+
+// MARK: - MCNearbyServiceAdvertiserDelegate
 
 extension PeerToPeerService : MCNearbyServiceAdvertiserDelegate {
 
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
-        
-        
+        // not sure whether I need to worry about this... going to ignore :-)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
@@ -138,7 +177,7 @@ extension PeerToPeerService : MCNearbyServiceAdvertiserDelegate {
         // Record that you're now in the state of receiving an invitation
         self.didSendInvite = false
         
-        // Default invitation message
+        // Default invitation message, in case we can't decode what the caller passed in via the context.
         var invitationMessage = "Join me!"
 
         // If there's a string message in the context, use that instead
@@ -155,6 +194,8 @@ extension PeerToPeerService : MCNearbyServiceAdvertiserDelegate {
     }
 }
 
+// MARK: - MCNearbyServiceBrowserDelegate
+
 extension PeerToPeerService : MCNearbyServiceBrowserDelegate {
 
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
@@ -164,7 +205,9 @@ extension PeerToPeerService : MCNearbyServiceBrowserDelegate {
 
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         
-        self.opponentPeerID = peerID
+        self.nearbyPeers.append(peerID)
+        
+        //self.opponentPeerID = peerID
         
         threadSafeCallback() {
             self.matchDelegate?.peerToPeer(self, foundNearbyPlayer: peerID)
@@ -173,7 +216,7 @@ extension PeerToPeerService : MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         
-        self.opponentPeerID = nil
+        self.nearbyPeers.removeAll { $0 == peerID }
         
         threadSafeCallback() {
             self.matchDelegate?.peerToPeer(self, lostNearbyPlayer: peerID)
@@ -182,6 +225,8 @@ extension PeerToPeerService : MCNearbyServiceBrowserDelegate {
 
 }
 
+//MARK: - MCSessionDelegate
+
 extension PeerToPeerService : MCSessionDelegate {
 
     func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
@@ -189,7 +234,6 @@ extension PeerToPeerService : MCSessionDelegate {
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print("State of \(peerID.displayName) changed to \(state.name)")
         
         // For some reason, the session:didChange method is also called when you didn't send the invite and the other person did. We only want to let the GameDelegate know if this connection/disconnection was as a result of your opponent responding to your invite, hence we check the self.didSendInvite flag.
         if self.didSendInvite {
@@ -208,13 +252,7 @@ extension PeerToPeerService : MCSessionDelegate {
             
         if let message = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) {
             
-            if let profileUpdateMessage = message as? ProfileUpdateMessage {
-                
-                threadSafeCallback {
-                    self.matchDelegate?.peerToPeer(self, opponentChangedName: profileUpdateMessage.name)
-                }
-                
-            } else if let scoreMessage = message as? ScoreMessage {
+            if let scoreMessage = message as? ScoreMessage {
                 // this message is coming from your opponent to tell you to update the scores you are displaying.
                 threadSafeCallback {
                     

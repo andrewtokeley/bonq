@@ -15,37 +15,22 @@ final class MenuPresenter: Presenter {
     
     let service = PeerToPeerService.instance
     
-    // remember all the peers we find (but we're only going to show one)
-    var foundPeers = [MCPeerID]()
+    var opponent: MCPeerID?
     
     override func viewHasLoaded() {
         
         self.service.matchDelegate = self
         
-        self.displayWelcomeMessage()
-        
         view.enablePlayButton(false)
         view.displayLocalPlayerName(name: service.localPeerID.displayName)
         view.displaySearchingForPlayer()
-    }
-    
-    private func displayWelcomeMessage() {
-//        let settingsService = SettingsService()
-//        settingsService.get { (settings) in
-//            self.view.displayMessage(text: "Welcome Back \(settings.name)")
-//        }
     }
 }
 
 // MARK: - PeerToPeerServiceMatchDelegate
 
 extension MenuPresenter: PeerToPeerServiceMatchDelegate {
-    
-    // TODO: this may no longer be needed
-    func peerToPeer(_ service: PeerToPeerService, opponentChangedName name: String) {
-        view.showOpponentPlayer(name: name)
-    }
-    
+        
     func peerToPeer(_ service: PeerToPeerService, invitationAcceptedFromPlayer player: MCPeerID, accepted: Bool) {
         
         if accepted {
@@ -75,9 +60,7 @@ extension MenuPresenter: PeerToPeerServiceMatchDelegate {
     func peerToPeer(_ service: PeerToPeerService, foundNearbyPlayer player: MCPeerID) {
         print("Found - \(player.displayName)")
         
-        if !foundPeers.contains(player) {
-            foundPeers.append(player)
-        }
+        self.opponent = player
         
         view.showOpponentPlayer(name: player.displayName)
         view.enablePlayButton(true)
@@ -86,15 +69,15 @@ extension MenuPresenter: PeerToPeerServiceMatchDelegate {
     func peerToPeer(_ service: PeerToPeerService, lostNearbyPlayer player: MCPeerID) {
         print("Lost - \(player.displayName)")
         
-        foundPeers.removeAll { (peer) -> Bool in
-            peer == player
-        }
-        
-        if let _ = foundPeers.last {
-            // display the last peer found
-            view.showOpponentPlayer(name: foundPeers.last!.displayName)
+        // Despite losing this peer, check if there is someone else nearby
+        if let anotherPeer = PeerToPeerService.instance.nearbyPeers.last {
+            self.opponent = anotherPeer
+            view.showOpponentPlayer(name: anotherPeer.displayName)
+            view.enablePlayButton(true)
+            
         } else {
-            // all found peers gone
+            // there is no-one else nearby :-(
+            self.opponent = nil
             view.displaySearchingForPlayer()
             view.enablePlayButton(false)
         }
@@ -109,14 +92,11 @@ extension MenuPresenter: MenuPresenterApi {
     func didClickPlayButton() {
         
         // invite the other player
-        if let foundPeer = foundPeers.last {
+        if let opponent = self.opponent  {
             
-            view.displayMessage(text: "Inviting \(foundPeer.displayName). One moment please...")
-            
-            service.invitePlayer(peer: foundPeer, invitationMessage: "\(service.localPeerID.displayName) wants to play!")
+            view.displayMessage(text: "Inviting \(opponent.displayName). One moment please...")
+            service.invitePlayer(peer: opponent, invitationMessage: "\(service.localPeerID.displayName) wants to play!")
         }
-        
-        // we'll get notified whether the player accepts or not in the
     }
     
     func didTapLocalProfileView() {

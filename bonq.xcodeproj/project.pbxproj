@@ -61,6 +61,7 @@
 		D8790BB0244C532200F29C19 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790BAF244C532200F29C19 /* Image.swift */; };
 		D8790BB2244D956100F29C19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790BB1244D956000F29C19 /* ProfileView.swift */; };
 		D8790BB4244EF8A900F29C19 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790BB3244EF8A900F29C19 /* Messages.swift */; };
+		D88C7F5C2463D0400073E920 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C7F5B2463D0400073E920 /* Spinner.swift */; };
 		D8D6A659243D58FD00E73306 /* launchscreen_2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D6A658243D58FD00E73306 /* launchscreen_2436x1125.png */; };
 		D8D6A65B243D999C00E73306 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D6A65A243D999C00E73306 /* GameKit.framework */; };
 		D8D6A65F243FBDBA00E73306 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D6A65E243FBDBA00E73306 /* Colours.swift */; };
@@ -166,6 +167,7 @@
 		D8790BAF244C532200F29C19 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		D8790BB1244D956000F29C19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D8790BB3244EF8A900F29C19 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		D88C7F5B2463D0400073E920 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		D8D6A658243D58FD00E73306 /* launchscreen_2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchscreen_2436x1125.png; sourceTree = "<group>"; };
 		D8D6A65A243D999C00E73306 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		D8D6A65C243D99E800E73306 /* bonq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bonq.entitlements; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				D8D6A665243FC8D000E73306 /* GameScene.swift */,
 				D8D6A6912442D69700E73306 /* GameSceneDelegate.swift */,
 				D8D6A694244308EF00E73306 /* Assets.xcassets */,
+				D88C7F5B2463D0400073E920 /* Spinner.swift */,
 			);
 			path = SpriteKit;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				D8D6A6922442D69700E73306 /* GameSceneDelegate.swift in Sources */,
 				D8D6A681244267A500E73306 /* Layout.swift in Sources */,
 				D8790BAE244C4B1400F29C19 /* SettingsService.swift in Sources */,
+				D88C7F5C2463D0400073E920 /* Spinner.swift in Sources */,
 				D8D6A67B24425C7D00E73306 /* GameSideBarModuleApi.swift in Sources */,
 				D8D6A67924425C7D00E73306 /* GameSideBarPresenter.swift in Sources */,
 				D83D23FB243D4C3B00DA81E0 /* LoadView.swift in Sources */,

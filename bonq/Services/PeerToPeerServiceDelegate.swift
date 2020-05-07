@@ -36,11 +36,6 @@ This protocol defines the delegate methods used to find an opponent and initiate
 protocol PeerToPeerServiceMatchDelegate {
     
     /**
-     Lets the delegate know the found peer's name has changed.
-     */
-    func peerToPeer(_ service : PeerToPeerService, opponentChangedName name: String)
-
-    /**
      This delegate method is called when you get invited to play a game from another player.
      */
     func peerToPeer(_ service : PeerToPeerService, invitationReceivedFromPlayer player: MCPeerID, invitationMessage: String, response: @escaping (Bool) -> Void)

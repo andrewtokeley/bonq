@@ -36,7 +36,6 @@ class Wall: Block {
         
         self.name = NodeNames.wall
         self.physicsBody?.category = .wall
-        //self.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {

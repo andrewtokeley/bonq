@@ -62,6 +62,8 @@
 		D8790BB2244D956100F29C19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790BB1244D956000F29C19 /* ProfileView.swift */; };
 		D8790BB4244EF8A900F29C19 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8790BB3244EF8A900F29C19 /* Messages.swift */; };
 		D88C7F5C2463D0400073E920 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C7F5B2463D0400073E920 /* Spinner.swift */; };
+		D8C2F9F02467A4CE008FF427 /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C2F9EF2467A4CE008FF427 /* VectorTests.swift */; };
+		D8C2F9F22467A537008FF427 /* RoundingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C2F9F12467A537008FF427 /* RoundingTests.swift */; };
 		D8D6A659243D58FD00E73306 /* launchscreen_2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D6A658243D58FD00E73306 /* launchscreen_2436x1125.png */; };
 		D8D6A65B243D999C00E73306 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D6A65A243D999C00E73306 /* GameKit.framework */; };
 		D8D6A65F243FBDBA00E73306 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D6A65E243FBDBA00E73306 /* Colours.swift */; };
@@ -92,7 +94,7 @@
 		D8DBC7E32459748E008C84C1 /* GameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBC7E22459748E008C84C1 /* GameDelegate.swift */; };
 		D8EE205F245D24D50094BA5A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EE205E245D24D50094BA5A /* Math.swift */; };
 		D8EE2061245D252A0094BA5A /* PointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EE2060245D252A0094BA5A /* PointExtension.swift */; };
-		D8EE2063245D25860094BA5A /* GeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EE2062245D25860094BA5A /* GeometryTests.swift */; };
+		D8EE2063245D25860094BA5A /* PointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EE2062245D25860094BA5A /* PointTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +170,8 @@
 		D8790BB1244D956000F29C19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D8790BB3244EF8A900F29C19 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		D88C7F5B2463D0400073E920 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		D8C2F9EF2467A4CE008FF427 /* VectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
+		D8C2F9F12467A537008FF427 /* RoundingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundingTests.swift; sourceTree = "<group>"; };
 		D8D6A658243D58FD00E73306 /* launchscreen_2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchscreen_2436x1125.png; sourceTree = "<group>"; };
 		D8D6A65A243D999C00E73306 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		D8D6A65C243D99E800E73306 /* bonq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bonq.entitlements; sourceTree = "<group>"; };
@@ -199,7 +203,7 @@
 		D8DBC7E22459748E008C84C1 /* GameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDelegate.swift; sourceTree = "<group>"; };
 		D8EE205E245D24D50094BA5A /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		D8EE2060245D252A0094BA5A /* PointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointExtension.swift; sourceTree = "<group>"; };
-		D8EE2062245D25860094BA5A /* GeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryTests.swift; sourceTree = "<group>"; };
+		D8EE2062245D25860094BA5A /* PointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTests.swift; sourceTree = "<group>"; };
 		F8B3C5FCE8DA8D6E19D57B9F /* Pods-bonqTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bonqTests.debug.xcconfig"; path = "Target Support Files/Pods-bonqTests/Pods-bonqTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -370,7 +374,9 @@
 			isa = PBXGroup;
 			children = (
 				D859E553243A7A980086E20D /* Info.plist */,
-				D8EE2062245D25860094BA5A /* GeometryTests.swift */,
+				D8EE2062245D25860094BA5A /* PointTests.swift */,
+				D8C2F9EF2467A4CE008FF427 /* VectorTests.swift */,
+				D8C2F9F12467A537008FF427 /* RoundingTests.swift */,
 			);
 			path = bonqTests;
 			sourceTree = "<group>";
@@ -412,8 +418,8 @@
 				D8D6A68D2442B81700E73306 /* Contstants.swift */,
 				D8D6A665243FC8D000E73306 /* GameScene.swift */,
 				D8D6A6912442D69700E73306 /* GameSceneDelegate.swift */,
-				D8D6A694244308EF00E73306 /* Assets.xcassets */,
 				D88C7F5B2463D0400073E920 /* Spinner.swift */,
+				D8D6A694244308EF00E73306 /* Assets.xcassets */,
 			);
 			path = SpriteKit;
 			sourceTree = "<group>";
@@ -715,7 +721,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8EE2063245D25860094BA5A /* GeometryTests.swift in Sources */,
+				D8C2F9F02467A4CE008FF427 /* VectorTests.swift in Sources */,
+				D8EE2063245D25860094BA5A /* PointTests.swift in Sources */,
+				D8C2F9F22467A537008FF427 /* RoundingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

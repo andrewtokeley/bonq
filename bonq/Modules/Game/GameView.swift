@@ -68,6 +68,12 @@ final class GameView: UserInterface {
     
     // MARK: - Events
     
+    @objc func angleSwipeHandler(sender: AngleSwipeGestureRecognizer) {
+        if sender.state == .ended {
+            presenter.didSelectToServe(vector: sender.vector.normalized())
+        }
+    }
+    
     @objc func moveLeft(sender: UILongPressGestureRecognizer) {
         if let bat = scene?.bat {
             if sender.state == .began {
@@ -112,6 +118,13 @@ final class GameView: UserInterface {
     override func loadView() {
         super.loadView()
      
+        // serve gesture
+        let serveGesture = AngleSwipeGestureRecognizer(target: self, action: #selector(angleSwipeHandler))
+        serveGesture.delegate = self
+        serveGesture.angleSwipeDelegate = self
+        self.view.addGestureRecognizer(serveGesture)
+        
+        
         self.view.backgroundColor = .app_backgroundLight
         self.view.addSubview(gameSurfaceView)
         self.view.addSubview(sideBarContainer)
@@ -204,6 +217,28 @@ final class GameView: UserInterface {
         }
     }
 }
+
+//MARK: - AngleSwipeGestureRecognizerDelegate
+
+extension GameView: AngleSwipeGestureRecognizerDelegate {
+    func angleSwipeGesture(_ gesture: AngleSwipeGestureRecognizer, shouldAngleTriggerAction angle: CGFloat) -> Bool {
+        return angle > 300 || angle < 60
+    }
+    
+    func angleSwipeGestureDistance(_ gesture: AngleSwipeGestureRecognizer) -> CGFloat {
+        return 40
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension GameView: UIGestureRecognizerDelegate {
+        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 
 //MARK: - GameView API
 extension GameView: GameViewApi {

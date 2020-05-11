@@ -30,6 +30,8 @@ class GameScene: SKScene {
     */
     var bat = Bat(size: CGSize(width: 100, height: 15))
     
+    var spinner = Spinner(diameter: 40)
+    
     /**
      Set up the scene
      */
@@ -58,29 +60,15 @@ class GameScene: SKScene {
         bat.position = CGPoint(x: self.frame.width/2, y: GROUND_HEIGHT + Layout.spacerSmall + bat.size.height)
         self.addChild(bat)
 
+        // add spinner
+        spinner.position = CGPoint(x: self.frame.width/2, y: 0.8 * self.frame.height)
+        spinner.startSpin()
+        self.addChild(spinner)
+        
         // add the ball in the serve position, but hide it initally but position it somewhere it won't immediately collide with something. For example, if we didn't set the position it would default to (0, 0) which is over the ground and we'd get a collision event.
         ball.alpha = 0
         ball.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         self.addChild(ball)
-        
-        // register swipes and tap to be able to move the bat
-        let left = UISwipeGestureRecognizer(target: self, action: #selector(swipeHandler))
-        left.direction = .left
-        self.view?.addGestureRecognizer(left)
-        let right = UISwipeGestureRecognizer(target: self, action: #selector(swipeHandler))
-        right.direction = .right
-        self.view?.addGestureRecognizer(right)
-
-        // tapping anywhere will stop the bat
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
-        self.view?.addGestureRecognizer(tap)
-
-        // serve gesture
-        let serveGesture = AngleSwipeGestureRecognizer(target: self, action: #selector(angleSwipeHandler))
-        serveGesture.delegate = self
-        serveGesture.angleSwipeDelegate = self
-        self.view?.addGestureRecognizer(serveGesture)
-        
     }
     
     deinit {
@@ -119,63 +107,13 @@ class GameScene: SKScene {
     
     // MARK: - Events
     
-    @objc func angleSwipeHandler(sender: AngleSwipeGestureRecognizer) {
-        guard isServing else {
-            return
-        }
-        
-        if sender.state == .ended {
-            gameSceneDelegate?.gameScene(self, didServiceBallInDirection: sender.vector.normalized())
-        }
-    }
-    
-    @objc func swipeHandler(sender: UISwipeGestureRecognizer) {
-        if sender.direction == .left {
-            bat.move(.left)
-        } else if sender.direction == .right {
-            bat.move(.right)
-        } else if sender.direction == .up {
-            
-        }
-    }
-    
-    @objc func tapHandler(sender: UITapGestureRecognizer) {
-        bat.move(.stop)
-    }
     
     override func update(_ currentTime: TimeInterval) {
-        let x = String(format: "%.2f", ball.position.x)
-        let y = String(format: "%.2f", ball.position.y)
-        let dx = String(format: "%.2f", ball.physicsBody!.velocity.dx)
-        let dy = String(format: "%.2f", ball.physicsBody!.velocity.dy)
-        ball.diagnosticLabel.text = "pos: (\(x), \(y)), vector: (\(dx), \(dy))"
-        
         if self.isServing {
             ball.position = CGPoint(x: bat.position.x, y: bat.position.y + bat.size.height/2 + ball.radius)
         }
     }
     
-}
-
-//MARK: - AngleSwipeGestureRecognizerDelegate
-
-extension GameScene: AngleSwipeGestureRecognizerDelegate {
-    func angleSwipeGesture(_ gesture: AngleSwipeGestureRecognizer, shouldAngleTriggerAction angle: CGFloat) -> Bool {
-        return angle > 300 || angle < 60
-    }
-    
-    func angleSwipeGestureDistance(_ gesture: AngleSwipeGestureRecognizer) -> CGFloat {
-        return 40
-    }
-}
-
-// MARK: - UIGestureRecognizerDelegate
-
-extension GameScene: UIGestureRecognizerDelegate {
-        
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
 }
 
 //MARK: - SKPhysicsContactDelegate
@@ -216,6 +154,24 @@ extension GameScene: SKPhysicsContactDelegate {
             
             gameSceneDelegate?.gameScene(self, ballHitGroundAt: contact.contactPoint.x)
 
+        } else if contactCategory.contains(.obstacle) {
+            
+            // find the ball and obstacle
+            if let ball = contact.bodyA.node as? Ball ?? contact.bodyB.node as? Ball {
+                
+                // for now only recognise contact if the ball is moving towards the other player (as opposed to the ball hitting the other person's spinner)
+                if (ball.physicsBody?.velocity.dy ?? 0) > 0 {
+                    
+                    if let spinner = contact.bodyA.node as? Spinner ?? contact.bodyB.node as? Spinner {
+                
+                        // suck the ball into the spinner object and fling it out at a random angle
+                        ball.run(SKAction.move(to: spinner.position, duration: 1)) {
+                            let spinDirection = CGVector(randomAngleBetween: -45, offSet: 90, coordinateSystem: .cartesian)
+                            ball.volley(vector: spinDirection, speed: 40)
+                        }
+                    }
+                }
+            }
         }
     }
 }

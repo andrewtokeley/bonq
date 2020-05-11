@@ -17,7 +17,7 @@ struct PhysicsCategory: OptionSet {
     static let ball = PhysicsCategory(rawValue: 0b00010)
     static let wall = PhysicsCategory(rawValue: 0b00100)
     static let ground = PhysicsCategory(rawValue: 0b01000)
-    static let topWall = PhysicsCategory(rawValue: 0b10000)
+    static let obstacle = PhysicsCategory(rawValue: 0b10000)
 }
 
 extension SKPhysicsBody {
@@ -36,4 +36,5 @@ struct NodeNames {
     static let bat = "bat"
     static let wall = "wall"
     static let ground = "ground"
+    static let spinner = "spinner"
 }

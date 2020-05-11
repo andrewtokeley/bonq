@@ -22,14 +22,14 @@ class Ball: SKShapeNode {
         return ball
     }()
     
-    lazy var diagnosticLabel: SKLabelNode = {
-        let node = SKLabelNode()
-        node.position = CGPoint(x: 0, y: -30)
-        node.fontColor = .white
-        node.fontSize = 12
-        
-        return node
-    }()
+//    lazy var diagnosticLabel: SKLabelNode = {
+//        let node = SKLabelNode()
+//        node.position = CGPoint(x: 0, y: -30)
+//        node.fontColor = .white
+//        node.fontSize = 12
+//
+//        return node
+//    }()
     
     // MARK: - Initializers
     
@@ -41,7 +41,6 @@ class Ball: SKShapeNode {
         self.name = NodeNames.ball
         
         self.addChild(ball)
-        //self.addChild(diagnosticLabel)
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.radius)
         self.physicsBody?.allowsRotation = false
@@ -56,8 +55,8 @@ class Ball: SKShapeNode {
         // Identifies the node as being a ball
         self.physicsBody?.category = .ball
         
-        // Balls should collide (not overlap) with bats, walls and ground
-        //self.physicsBody?.collisionBitMask = PhysicsCategory.bat.rawValue | PhysicsCategory.ground.rawValue
+        // Balls should collide (not overlap) with bats, walls and ground (but not obstacles)
+        self.physicsBody?.collisionBitMask = PhysicsCategory.bat.rawValue | PhysicsCategory.ground.rawValue | PhysicsCategory.wall.rawValue
         
         // Only notify when the ball collides with a bat and ground (not walls)
         self.physicsBody?.contactTestBitMask = PhysicsCategory.bat.rawValue | PhysicsCategory.ground.rawValue | PhysicsCategory.wall.rawValue
@@ -94,9 +93,13 @@ class Ball: SKShapeNode {
     }
     
     /**
-     Serve the ball (currently always up and right at 45 degree angle)
+     Serve the ball in the given direction
      */
     func serve(vector: CGVector) {
+        self.applyImpulse(normalisedDirectionVector: vector.normalized())
+    }
+    
+    func volley(vector: CGVector, speed: CGFloat) {
         self.applyImpulse(normalisedDirectionVector: vector.normalized())
     }
     

@@ -11,7 +11,7 @@ import CoreGraphics
 
 @testable import bonq
 
-class GeometryTests: XCTestCase {
+class PointTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -62,28 +62,6 @@ class GeometryTests: XCTestCase {
         let angle = point1.angle(toPoint: point2)
         
         XCTAssert(angle.isNaN)
-    }
-    
-    func testRounding() {
-        let x: CGFloat = 1.23456789
-        let x2 = x.round(2)
-        XCTAssert(x2 == 1.23)
-        
-        let x3 = x.round(3)
-        XCTAssert(x3 == 1.235)  
-    }
-    
-    
-    func testVectorFromAngle_90() {
-        let vectorScreen = CGVector(angle: 90.0, coordinateSystem: .screen)
-        XCTAssert(vectorScreen.dx == 1)
-        XCTAssert(vectorScreen.dy.round(4) == 0)
-        XCTAssert(vectorScreen.length.round(4) == 1)
-        
-        let vectorSpriteKit = CGVector(angle: 90, coordinateSystem: .spriteKit)
-        XCTAssert(vectorSpriteKit.dx == 1)
-        XCTAssert(vectorSpriteKit.dy.round(4) == 0)
-        
     }
 
 }

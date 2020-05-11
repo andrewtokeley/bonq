@@ -83,15 +83,15 @@ extension GamePresenter: GamePresenterApi {
         
         // create the bounce vector based on the location the ball hit the bat
         // location is between 0 and 1, 0 is the left most part of bat, 1 the rightmost, 0.5 in the middle
-        var vector = CGVector(angle: 0, coordinateSystem: .spriteKit)
+        var vector = CGVector(angle: 0, coordinateSystem: .cartesian)
         if location < 0.1 {
-            vector = CGVector(angle: 290, coordinateSystem: .spriteKit) // left, flat, up
+            vector = CGVector(angle: 290, coordinateSystem: .cartesian) // left, flat, up
         } else if location < 0.4 {
-            vector = CGVector(angle: 315, coordinateSystem: .spriteKit) // left 45 up
+            vector = CGVector(angle: 315, coordinateSystem: .cartesian) // left 45 up
         } else if location > 0.9 {
-            vector = CGVector(angle: 75, coordinateSystem: .spriteKit) // right flat up
+            vector = CGVector(angle: 75, coordinateSystem: .cartesian) // right flat up
         } else if location > 0.6 {
-            vector = CGVector(angle: 45, coordinateSystem: .spriteKit) // right 45 up
+            vector = CGVector(angle: 45, coordinateSystem: .cartesian) // right 45 up
         }
         
         view.serveBall(vector: vector)
